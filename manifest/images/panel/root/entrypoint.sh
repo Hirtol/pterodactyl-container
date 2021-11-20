@@ -102,17 +102,4 @@ function startServer {
 
 initContainer
 
-case "${1}" in
-    p:start)
-        startServer
-        ;;
-    p:worker)
-        exec php /var/www/html/artisan queue:work --queue=high,standard,low --sleep=3 --tries=3
-        ;;
-    p:cron)
-        exec /usr/sbin/crond -f -l 0
-        ;;
-    *)
-        exec ${@}
-        ;;
-esac
+startServer & exec php /var/www/html/artisan queue:work --queue=high,standard,low --sleep=3 --tries=3 & exec /usr/sbin/crond -f -l 0
