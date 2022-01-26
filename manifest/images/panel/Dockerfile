@@ -1,4 +1,4 @@
-FROM alpine:edge as base
+FROM alpine:3.15 as base
 
 RUN \
     apk --update add curl gettext nginx php7 php7 php7-bcmath php7-common php7-dom php7-fileinfo \
