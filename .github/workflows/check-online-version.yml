@@ -24,16 +24,16 @@ jobs:
           echo "::set-output name=daemon_version::v$(echo $latest_info | jq -r '.wings')"
 
       - name: Get Panel Docker version
-        uses: luoqiz/docker-images-latest-version@master
         id: panel_docker_version
-        with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.PANEL_PROJECT_NAME }}
+        run: |
+          latest_info="$(curl -s "https://hub.docker.com/v2/repositories/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.PANEL_PROJECT_NAME }}/tags/?page_size=25&page=1&ordering=last_updated")"
+          echo "::set-output name=version::$(echo $latest_info | jq ".results[0].name")"
 
       - name: Get Daemon Docker version
-        uses: luoqiz/docker-images-latest-version@master
         id: daemon_docker_version
-        with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DAEMON_PROJECT_NAME }}
+        run: |
+          latest_info="$(curl -s "https://hub.docker.com/v2/repositories/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DAEMON_PROJECT_NAME }}/tags/?page_size=25&page=1&ordering=last_updated")"
+          echo "::set-output name=version::$(echo $latest_info | jq ".results[0].name")"
 
   update-version-txt:
     name: Update version.txt
