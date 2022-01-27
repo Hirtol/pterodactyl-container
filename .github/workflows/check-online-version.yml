@@ -27,13 +27,15 @@ jobs:
         id: panel_docker_version
         run: |
           latest_info="$(curl -s "https://hub.docker.com/v2/repositories/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.PANEL_PROJECT_NAME }}/tags/?page_size=25&page=1&ordering=last_updated")"
-          echo "::set-output name=version::$(echo $latest_info | jq ".results[0].name")"
+          echo $latest_info | jq '.results[0].name'
+          echo "::set-output name=version::$(echo $latest_info | jq -r '.results[0].name')"
 
       - name: Get Daemon Docker version
         id: daemon_docker_version
         run: |
           latest_info="$(curl -s "https://hub.docker.com/v2/repositories/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DAEMON_PROJECT_NAME }}/tags/?page_size=25&page=1&ordering=last_updated")"
-          echo "::set-output name=version::$(echo $latest_info | jq ".results[0].name")"
+          echo $latest_info | jq '.results[0].name'
+          echo "::set-output name=version::$(echo $latest_info | jq -r '.results[0].name')"
 
   update-version-txt:
     name: Update version.txt
