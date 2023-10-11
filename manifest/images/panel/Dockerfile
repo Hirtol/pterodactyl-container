@@ -1,9 +1,9 @@
 FROM alpine:3.16 as base
 
 RUN \
-    apk --update add curl gettext mariadb-client nginx php8 php8 php8-bcmath php8-common php8-dom php8-fileinfo \
-    php8-fpm php8-gd php8-mbstring php8-openssl php8-pdo php8-phar php8-json php8-sodium \
-    php8-pdo_mysql php8-posix php8-session php8-simplexml php8-tokenizer php8-ctype php8-zlib php8-zip php8-xmlwriter \
+    apk --update add curl gettext mariadb-client nginx php82 php82 php82-bcmath php82-common php82-dom php82-fileinfo \
+    php82-fpm php82-gd php82-mbstring php82-openssl php82-pdo php82-phar php82-json php82-sodium \
+    php82-pdo_mysql php82-posix php82-session php82-simplexml php82-tokenizer php82-ctype php82-zlib php82-zip php82-xmlwriter \
     tini \
     && mkdir -p /var/www/html /run/nginx /etc/nginx/conf.d/
 
