@@ -5,7 +5,8 @@ RUN \
     php82-fpm php82-gd php82-mbstring php82-openssl php82-pdo php82-phar php82-json php82-sodium \
     php82-pdo_mysql php82-posix php82-session php82-simplexml php82-tokenizer php82-ctype php82-zlib php82-zip php82-xmlwriter \
     tini \
-    && mkdir -p /var/www/html /run/nginx /etc/nginx/conf.d/
+    && mkdir -p /var/www/html /run/nginx /etc/nginx/conf.d/ \
+    && ln -s /usr/bin/php82 /usr/bin/php
 
 # Build phase of the container
 # This is where composer is added and pterodactyl properly setup
@@ -30,6 +31,8 @@ RUN \
     && cp .env.example .env \
     && composer install --ansi --no-dev --optimize-autoloader \
     && chown -R nginx:nginx *;
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN \
     yarn install --production \
