@@ -1,4 +1,4 @@
-FROM alpine:3.16 as base
+FROM alpine:3.18 as base
 
 RUN \
     apk --update add curl gettext mariadb-client nginx php82 php82 php82-bcmath php82-common php82-dom php82-fileinfo \
